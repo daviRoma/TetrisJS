@@ -1,4 +1,4 @@
-import { setClass, buildDOMElem } from './utils.js';
+import { setClass, buildDOMElem } from '../utils.js';
 
 const materialIcon = 'material-icons';
 

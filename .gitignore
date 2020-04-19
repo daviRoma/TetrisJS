@@ -1,0 +1,6 @@
+# Do not commit node modules
+node_modules/
+
+# Do not commit package json
+package-lock.json
+package.json

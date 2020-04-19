@@ -12,12 +12,33 @@ const bgcolors = {
     violet: '#660066'
 };
 
+/**
+ * Set element style.
+ * @param {any} element 
+ * @param {Object} styles 
+ */
 let setStyle = function(element, styles) {
     for (let property in styles) {
         element.style[property] = styles[property];
     }
 };
 
+/**
+ * Set element class list.
+ * @param {any} element 
+ * @param {Object} classes 
+ */
+let setClass = function (element, classes) {
+    for (let cls of classes) {
+        element.classList.add(cls);
+    }
+};
+
+/**
+ * Build document element.
+ * @param {String} dom_name 
+ * @param {Object} elem_schema 
+ */
 let buildDOMElem = function(dom_name, elem_schema) {
     let element = document.createElement(dom_name);
     for (let key in elem_schema) {
@@ -26,24 +47,11 @@ let buildDOMElem = function(dom_name, elem_schema) {
     return element;
 };
 
-// let buildDOMElem = function(dom_name, elem_id, elem_name, elem_text) {
-//     let element = document.createElement(dom_name);
-//     if (elem_id) element.id = elem_id;
-//     if (elem_name) element.name = elem_name;
-//     if (elem_text) element.textContent = elem_text;
-//     return element;
-// };
-
-let setClass = function(element, classes) {
-    for (let cls of classes) {
-        element.classList.add(cls);
-    }
-};
-
 let scoreCalculation = function(score, rows) {
     score += (10*rows);
     return score;
 };
+
 
 export {
     bgcolors,
