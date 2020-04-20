@@ -1,4 +1,4 @@
-import { setStyle, setClass, buildDOMElem } from './utils.js';
+import { setStyle, setClass, buildDOMElem } from '../utils.js';
 
 /**
  * Cell
@@ -15,7 +15,7 @@ let Cell = function(id) {
         this.defaultColor = 'white';
         this.row = 0;
 
-        div = this.build('div', 'Cell-' + id, 'cell', null);
+        div = this.build('div', {id: 'Cell-' + id, name:'cell'});
         this.setClass(div, ['cell']);
         
     }).bind(this);
@@ -23,6 +23,10 @@ let Cell = function(id) {
     this.attach = function(parentElement){
         parentElement.append(div);
     };
+    
+    this.detach = function () {
+        div.parentElement.removeChild(div);
+    }
     
     this.setRow = function(row) {
         this.row = row;

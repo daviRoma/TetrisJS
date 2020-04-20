@@ -1,8 +1,9 @@
 import Cell from './cell.js';
 
-const grid = {
+const grid_style = {
     margin: '5px',
-    border: '2px solid black'
+    border: '2px solid black',
+    background: 'white'
 };
 
 /**
@@ -10,7 +11,7 @@ const grid = {
  * @param {Document} element 
  * @param {Number} size 
  */
-let setGrid = function(element, size) {
+let grid = function(element, size) {
     let cells = [];
 
     for (let i = 0; i < size; i++) {
@@ -25,4 +26,4 @@ let setGrid = function(element, size) {
     
 };
 
-export { setGrid, grid };
+export { grid, grid_style};

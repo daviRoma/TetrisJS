@@ -1,6 +1,6 @@
-import { setStyle } from './utils.js';
-import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock, type } from './block.js';
-import { setGrid, grid } from './grid.js';
+import { setStyle, buildDOMElem } from './utils.js';
+import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock, type } from './components/block.js';
+import { grid, grid_style } from './components/grid.js';
 
 /** 
  * Block Preview square.
@@ -18,19 +18,17 @@ let BlockPreview = function(id) {
     let init = (function() {
         this.fieldId = id;
         
-        div = document.createElement('div');
-        div.setAttribute('id', id);
-        div.setAttribute('name', 'preview_grid');
+        div = this.build('div', { id: this.fieldId, name: 'preview_grid'});
 
         // Grid size: 20x10
-        _this.buildGrid();
+        this.buildGrid();
         this.setStyle(div, previewGrid);
-        cells = _this.setGrid(div, size);
+        cells = this.setGrid(div, size);
   
     }).bind(this);
 
     this.buildGrid = function() {
-        previewGrid = {...grid};
+        previewGrid = {...grid_style};
         previewGrid.top = '15%';
         previewGrid.left = '65%';
         previewGrid.height = '110px';
@@ -113,10 +111,19 @@ let BlockPreview = function(id) {
         blockNumber += 1;
     };
 
+    this.setBackground = function (bgcolor) {
+        previewGrid.background = bgcolor;
+        this.setStyle(div, previewGrid);
+        for (let cell of cells) {
+            cell.setDefaultColor(bgcolor);
+        }
+    }
+
     init();
 };
 
 BlockPreview.prototype.setStyle = setStyle;
-BlockPreview.prototype.setGrid = setGrid;
+BlockPreview.prototype.setGrid = grid;
+BlockPreview.prototype.build = buildDOMElem;
 
 export default BlockPreview;

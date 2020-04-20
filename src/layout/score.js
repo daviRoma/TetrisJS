@@ -1,9 +1,10 @@
-import { setClass, buildDOMElem } from '../utils.js';
+import { setClass, buildDOMElem, scoreCalculation } from '../utils.js';
 
 let Score = function (id) {
     let context;
     let text_elem;
     let num_elem;
+    let value = 0;
 
     let init = (function () {
         this.fieldId = id;
@@ -17,7 +18,7 @@ let Score = function (id) {
 
         num_elem = this.build('span', { id: 'score_number' });
         this.setClass(num_elem, ["score-number"]);
-        num_elem.innerHTML = 0;
+        num_elem.innerHTML = value;
 
         context.append(text_elem);
         context.append(num_elem);
@@ -34,10 +35,11 @@ let Score = function (id) {
     
     this.setScore = function(score) {
         num_elem.innerHTML = score;
+        value = score;
     }
 
     this.getScore = function() {
-        return num_elem.innerHTML;
+        return value;
     }
 
     init();
@@ -45,5 +47,6 @@ let Score = function (id) {
 
 Score.prototype.build = buildDOMElem;
 Score.prototype.setClass = setClass;
+Score.prototype.calculateNewScore = scoreCalculation;
 
 export default Score;

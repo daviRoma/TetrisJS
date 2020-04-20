@@ -2,20 +2,21 @@
     display: grid;
     grid-template-columns: 20% 50% 30%;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 25px;
     margin: 10px;
 }
 
 .header-text {
     margin: 0;
     padding: 5px;
-    color: transparent;
-    background: #264d73;
+    color: #FFFFFF;
+    background: #FFFFFF;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
-    text-shadow: 0px 3px 3px rgba(233, 232, 232, 0.4);
+    /* text-shadow: 0px 3px 3px rgba(233, 232, 232, 0.4); */
+    text-shadow: 2px 2px 0 #083b7a, 2px -2px 0 #083b7a, -2px 2px 0 #083b7a, -2px -2px 0 #083b7a, 2px 0px 0 #083b7a, 0px 2px 0 #083b7a, -2px 0px 0 #083b7a, 0px -2px 0 #083b7a;
 }
 
 .grid-container {
@@ -77,7 +78,8 @@ div.cell {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 5px 2px;
-    padding: 5px 2px;
+    padding: 10px 5px;
+    border-top: 2px solid #0f0f0f;
 }
 
 .option-container input {
@@ -97,7 +99,7 @@ div.cell {
 }
 
 .button-container {
-    padding: 2px;
+    padding: 10px 5px;
     display: grid;
     grid-template-columns: 40% 20% 20%;
 }

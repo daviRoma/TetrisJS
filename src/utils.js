@@ -47,8 +47,22 @@ let buildDOMElem = function(dom_name, elem_schema) {
     return element;
 };
 
+/**
+ * Calculate new score.
+ * @param {Number} score 
+ * @param {Number} rows 
+ */
 let scoreCalculation = function(score, rows) {
-    score += (10*rows);
+    let bonus = 0;
+
+    if (rows == 4) {
+        bonus = 7;
+    } else if (rows == 3) {
+        bonus = 5;
+    }
+
+    score += (10*rows) + bonus;
+
     return score;
 };
 

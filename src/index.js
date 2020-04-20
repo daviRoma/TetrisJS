@@ -9,9 +9,15 @@ import Score from './layout/score';
 import { setStyle, bgcolors } from './utils.js';
 
 {
+    const default_interval = 1000;
+    const intervals = [900, 700, 500, 300, 200];
+    const tresholds = [150, 300, 500, 700, 1000];
+
     var clock = null;
+    var interval = null;
     var start = false;
 
+    // Tetris app
     let tetris = function() {
 
         // Build page
@@ -23,7 +29,7 @@ import { setStyle, bgcolors } from './utils.js';
         let pauseButton = new Button("pause", null, ["button", "button-pause", "btn-disable"], "pause");
         let playButton = new Button("play", null, ["button", "button-play", "btn-disable"], "play_arrow");
         let modal;
-        let backgrounOptions = new Options('backgroundOptions', 'Background', null);
+        let backgrounOptions = new Options('backgroundOptions', 'Grid Background', null);
         let optionItem_1 = new OptionItem('radio', 'background', 'default', true, null);
         let optionItem_2 = new OptionItem('radio', 'background', 'darkblue', false, null);
         let optionItem_3 = new OptionItem('radio', 'background', 'darkgreen', false, null);
@@ -39,6 +45,7 @@ import { setStyle, bgcolors } from './utils.js';
         backgrounOptions.attach($("#item-left-2"));
         score.attach($("#item-right-2"));
 
+        // Set items for grid background
         backgrounOptions.setItems([
             optionItem_1, 
             optionItem_2, 
@@ -72,19 +79,48 @@ import { setStyle, bgcolors } from './utils.js';
                 playground.setFixedBlock();
 
                 // Check match rows and set new score
-                playground.checkRowWin();
-                score.setScore(playground.getScore());
+                let update_interval = false;
+
+                if (playground.checkRowWin()) {
+                    let old_score = score.getScore();
+                    let new_score = score.calculateNewScore(old_score, playground.getWinningRows());
+                    score.setScore(new_score);
+
+                    if (new_score >= tresholds[4] && old_score < tresholds[4]) {
+                        interval = intervals[4];
+                        update_interval = true;
+                    } else if (new_score >= tresholds[3] && old_score < tresholds[3]) {
+                        interval = intervals[3];
+                        update_interval = true;
+                    } else if (new_score >= tresholds[2] && old_score < tresholds[2]) {
+                        interval = intervals[2];
+                        update_interval = true;
+                    } else if (new_score >= tresholds[1] && old_score < tresholds[1]) {
+                        interval = intervals[1];
+                        update_interval = true;
+                    } else if (new_score >= tresholds[0] && old_score < tresholds[0]) {
+                        interval = intervals[0];
+                        update_interval = true;
+                    }
+
+                }
 
                 // Keep playing
                 if (playground.placeBlockToDefaultPosition(blockPreview.getBlock())) {
                     blockPreview.generateNextBlock();
+
+                    if (update_interval) {
+                        clearInterval(clock);
+                        clock = setInterval(() => play(), interval);
+                    }
+
                 } else {
                     // you lose
                     clearInterval(clock);
                     clock = null;
                     start = false;
                     modal = new Modal('modal_1', 'Game Over', 'Score: ' + score.getScore() );
-                    modal.attach($("#root"));
+                    modal.attach(context);
                 }
 
             }
@@ -126,13 +162,17 @@ import { setStyle, bgcolors } from './utils.js';
                 clearInterval(clock);
             }
             
+            // Set variables
+            interval = default_interval;
+            score.setScore(0);
+
             // Set background on new game
             let optionValue = $(':radio[name="background"]').filter(':checked').val();
             playground.setBackground(bgcolors[optionValue]);
             
             // Begin
             begin();
-            clock = setInterval(() => play(), 1000);
+            clock = setInterval(() => play(), interval);
             start = true;
             
             if (playButton.active) {
@@ -158,7 +198,7 @@ import { setStyle, bgcolors } from './utils.js';
 
         // handle event of play button
         playButton.handleEvent("click", () => {
-            clock = setInterval(() => play(), 1000);
+            clock = setInterval(() => play(), interval);
             start = true;
             playButton.detach($("#item-left-1"));
             pauseButton.attach($("#item-left-1"));
@@ -167,9 +207,10 @@ import { setStyle, bgcolors } from './utils.js';
         // Register options event
         $(':radio[name="background"]').change(function() {
             let value = $(this).filter(':checked').val();
+            // Set background
             playground.setBackground(bgcolors[value]);
+            blockPreview.setBackground(bgcolors[value]);
             $(':radio[name="background"]').blur();
-            // TO DO: Set preview background
         });
 
         // Handle arrows click event

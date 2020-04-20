@@ -1,7 +1,8 @@
-import { setStyle, scoreCalculation } from './utils.js';
-import { setGrid, grid } from './grid.js';
-import { IBlock } from './block.js';
-import $ from 'jquery';
+import { setStyle, buildDOMElem } from './utils.js';
+import { grid, grid_style } from './components/grid.js';
+import { IBlock } from './components/block.js';
+
+const default_center = 14;
 
 /** 
  * Playground class.
@@ -13,15 +14,13 @@ let Playground = function(id) {
     let size = 200;
     let cells = [];
     let currentBlock;
-    let score = 0;
+    let winning_rows;
     let _this = this;
 
     let init = (function() {
         this.fieldId = id;
         
-        div = document.createElement('div');
-        div.setAttribute('id', id);
-        div.setAttribute('name', 'playground_grid');
+        div = this.build('div', { id: this.fieldId, name: 'playground_grid'});
 
         // Grid size: 20x10
         this.buildGrid();
@@ -29,32 +28,33 @@ let Playground = function(id) {
         cells = this.setGrid(div, size);
     }).bind(this);
 
+    this.getWinningRows = function () {
+        return winning_rows;
+    }
+
     this.buildGrid = function() {
-        playGrid = {...grid};
+        playGrid = {...grid_style};
         playGrid.top = '15%';
         playGrid.left = '40%';
         playGrid.height = '440px';
         playGrid.width = '220px';
-        playGrid.float = 'left';
-        playGrid.background = 'white';
     }
 
     this.cleanGrid = function() {
-        $(div).empty();
+        div.querySelectorAll('div').forEach(function (elem) {
+            elem.remove();
+        });
         cells = this.setGrid(div, size);
+        winning_rows = 0;
     }
 
     this.setBackground = function(bgcolor) {
         playGrid.background = bgcolor;
         this.setStyle(div, playGrid);
-        for (let cell of cells) {
-            // if (!cell.filled)
-                cell.setDefaultColor(bgcolor);
-        }
-    }
 
-    this.getScore = function() {
-        return score;
+        for (let cell of cells) {
+            cell.setDefaultColor(bgcolor);
+        }
     }
 
     this.attach = function(parentElement){
@@ -69,16 +69,18 @@ let Playground = function(id) {
         div.addEventListener(eventType, callback.bind(this, _this));
     }
 
+    /**
+     * Place block at the top center.
+     */
     this.placeBlockToDefaultPosition = function(block) {
-        let center = 14;
         currentBlock = block;
         currentBlock.resetPositionSchema();
-        currentBlock.setCenter(center);
+        currentBlock.setCenter(default_center);
         currentBlock.setPositionSchema(10);
         currentBlock.setBlock(cells, 10);
 
         // Check looser case
-        if (cells[center].fixed || 
+        if (cells[default_center].fixed || 
             cells[currentBlock.positionSchema.body].fixed ||
             cells[currentBlock.positionSchema.head].fixed ||
             cells[currentBlock.positionSchema.footer].fixed) 
@@ -187,6 +189,9 @@ let Playground = function(id) {
         return true;
     };
 
+    /**
+     * Check limit left and right.
+     */
     this.checkBlockSideLimit = function(param) {
         for (let pos in currentBlock.positionSchema) {
             let val = currentBlock.positionSchema[pos];
@@ -198,6 +203,9 @@ let Playground = function(id) {
         return true;
     }
 
+    /**
+     * Attach and fix the block.
+     */
     this.attachBlock = function(param) {
         for (let pos in currentBlock.positionSchema) {
             if (cells[currentBlock.positionSchema[pos] + param].fixed) {
@@ -226,9 +234,9 @@ let Playground = function(id) {
             let count = 0;
             let index = row >= 10 ? row*10 : row;
             let endline = index+10;
-
+            
             for (index; index < endline; index++) {
-                count = cells[index].filled ? count+1 : count;
+                count = cells[index].fixed ? count+1 : count;
             }
 
             if (count == 10) arrayWin.push(row);
@@ -238,11 +246,17 @@ let Playground = function(id) {
 
         // Filled row -> block reposition
         if (arrayWin.length > 0) {
+            winning_rows = arrayWin.length;
             this.blockReposition(arrayWin);
+            return true
         }
+        winning_rows = 0;
+        // Not row win
+        return false;
 
     }
 
+    // Block reposition after win case
     this.blockReposition = function(arrayWin) {
         let arrayLength = arrayWin.length;
 
@@ -252,9 +266,6 @@ let Playground = function(id) {
                 cells[j].resetCell();
             }
         }
-
-        // Set score
-        score = this.setScore(score, arrayLength);
         
         // Scroll blocks
         for (let i = 0; i < arrayLength; i++) {
@@ -281,8 +292,8 @@ let Playground = function(id) {
 };
 
 Playground.prototype.setStyle = setStyle;
-Playground.prototype.setGrid = setGrid;
-Playground.prototype.setScore = scoreCalculation;
+Playground.prototype.setGrid = grid;
+Playground.prototype.build = buildDOMElem;
 
 export default Playground;
 
