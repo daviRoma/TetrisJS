@@ -1,54 +1,57 @@
-import { setStyle, buildDOMElem } from './utils.js';
-import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock, type } from './components/block.js';
-import { grid, grid_style } from './components/grid.js';
+import { setStyle, buildDOMElem } from '../utils.js';
+import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock, type } from '../components/block.js';
+import { Grid, grid_style } from '../components/grid.js';
+import { Cell, cellAggregation } from '../components/cell.js';
+
+const grid_size = 25;
 
 /** 
  * Block Preview square.
  * @param {String} id
  */
-let BlockPreview = function(id) {
-    let div;
+let Preview = function(id) {
+    let grid;
     let previewGrid;
-    let size = 25;
-    let cells = [];
     let block;
     let blockNumber = 1;
-    let _this = this;
 
     let init = (function() {
         this.fieldId = id;
-        
-        div = this.build('div', { id: this.fieldId, name: 'preview_grid'});
 
-        // Grid size: 20x10
-        this.buildGrid();
-        this.setStyle(div, previewGrid);
-        cells = this.setGrid(div, size);
-  
-    }).bind(this);
-
-    this.buildGrid = function() {
-        previewGrid = {...grid_style};
+        previewGrid = { ...grid_style };
         previewGrid.top = '15%';
         previewGrid.left = '65%';
         previewGrid.height = '110px';
         previewGrid.width = '110px';
+
+        grid = new Grid('preview_grid', 'preview', grid_size, previewGrid);
+        grid.cells = this.setGridCells(grid.getContext(), grid_size);
+
+    }).bind(this);
+
+    this.setGrid = function (grid) {
+        grid = grid;
     }
 
+    this.getGrid = function () {
+        return grid;
+    }
+    
     this.attach = function(parentElement){
-        parentElement.prepend(div);
+        grid.attach(parentElement);
     };
   
-    this.detach = function(){
-        div.parentElement.removeChild(div);
-    };
-  
-    this.handleEvent = function(eventType, callback){
-        div.addEventListener(eventType, callback.bind(this, _this));
-    };
+    this.detach = function () {
+        grid.detach();
+    }
+
+    this.handleEvent = function (eventType, callback) {
+        grid.handleEvent(eventType, callback);
+    }
+
 
     this.resetGrid = function() {
-        for (let cell of cells) {
+        for (let cell of grid.cells) {
             cell.resetCell();
         }
     };
@@ -61,7 +64,7 @@ let BlockPreview = function(id) {
         let indexType = Math.floor(Math.random() * type.length);
         let center = 0;
 
-        for (let cell of cells) {
+        for (let cell of grid.cells) {
             if (cell.filled) {
                 cell.resetCell();
             }
@@ -107,14 +110,15 @@ let BlockPreview = function(id) {
         }
         block.setPositionSchema(5);
 
-        block.setBlock(cells, 5);
+        block.setBlock(grid.cells, 5);
         blockNumber += 1;
     };
 
     this.setBackground = function (bgcolor) {
         previewGrid.background = bgcolor;
-        this.setStyle(div, previewGrid);
-        for (let cell of cells) {
+        this.setStyle(grid.getContext(), previewGrid);
+
+        for (let cell of grid.cells) {
             cell.setDefaultColor(bgcolor);
         }
     }
@@ -122,8 +126,8 @@ let BlockPreview = function(id) {
     init();
 };
 
-BlockPreview.prototype.setStyle = setStyle;
-BlockPreview.prototype.setGrid = grid;
-BlockPreview.prototype.build = buildDOMElem;
+Preview.prototype.setStyle = setStyle;
+Preview.prototype.build = buildDOMElem;
+Preview.prototype.setGridCells = cellAggregation;
 
-export default BlockPreview;
+export default Preview;

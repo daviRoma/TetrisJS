@@ -71,8 +71,22 @@ let Cell = function(id) {
     init();
 };
 
+let cellAggregation = function (element, size) {
+    let cells = [];
+
+    for (let i = 0; i < size; i++) {
+        let cell = new Cell(i);
+        let row = i >= 10 ? Math.floor(i / 10) : 0;
+
+        cell.setRow(row);
+        cells.push(cell);
+        element.append(cell.getElem());
+    }
+    return cells;
+}
+
 Cell.prototype.setStyle = setStyle;
 Cell.prototype.setClass = setClass;
 Cell.prototype.build = buildDOMElem;
 
-export default Cell;
+export { Cell, cellAggregation };

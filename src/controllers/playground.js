@@ -1,72 +1,75 @@
-import { setStyle, buildDOMElem } from './utils.js';
-import { grid, grid_style } from './components/grid.js';
-import { IBlock } from './components/block.js';
+import { setStyle, buildDOMElem } from '../utils.js';
+import { Grid, grid_style } from '../components/grid.js';
+import { IBlock } from '../components/block.js';
+import { Cell, cellAggregation} from '../components/cell.js';
 
 const default_center = 14;
+const grid_size = 200; // 20x10
 
 /** 
  * Playground class.
  * @param {String} id
  */
 let Playground = function(id) {
-    let div;
-    let playGrid;
-    let size = 200;
-    let cells = [];
+    let playgroundGrid;
+    let grid;
     let currentBlock;
     let winning_rows;
     let _this = this;
 
     let init = (function() {
         this.fieldId = id;
-        
-        div = this.build('div', { id: this.fieldId, name: 'playground_grid'});
 
-        // Grid size: 20x10
-        this.buildGrid();
-        this.setStyle(div, playGrid);
-        cells = this.setGrid(div, size);
+        playgroundGrid = { ...grid_style };
+        playgroundGrid.top = '15%';
+        playgroundGrid.left = '40%';
+        playgroundGrid.height = '440px';
+        playgroundGrid.width = '220px';
+
+        grid = new Grid('playground_grid', 'playground_grid', grid_size, playgroundGrid);
+        grid.cells = this.setGridCells(grid.getContext(), grid_size);
+        // div = this.build('div', { id: this.fieldId, name: 'playground_grid'});
     }).bind(this);
+
+    this.setGrid = function(grid) {
+        grid = grid;
+    }
+
+    this.getGrid = function() {
+        return grid;
+    }
 
     this.getWinningRows = function () {
         return winning_rows;
     }
 
-    this.buildGrid = function() {
-        playGrid = {...grid_style};
-        playGrid.top = '15%';
-        playGrid.left = '40%';
-        playGrid.height = '440px';
-        playGrid.width = '220px';
-    }
-
     this.cleanGrid = function() {
-        div.querySelectorAll('div').forEach(function (elem) {
+        grid.getContext().querySelectorAll('div').forEach(function (elem) {
             elem.remove();
         });
-        cells = this.setGrid(div, size);
+        grid.cells = this.setGridCells(grid.getContext(), grid_size);
         winning_rows = 0;
     }
 
     this.setBackground = function(bgcolor) {
-        playGrid.background = bgcolor;
-        this.setStyle(div, playGrid);
+        playgroundGrid.background = bgcolor;
+        grid.setStyle(grid.getContext(), playgroundGrid);
 
-        for (let cell of cells) {
+        for (let cell of grid.cells) {
             cell.setDefaultColor(bgcolor);
         }
     }
 
     this.attach = function(parentElement){
-        parentElement.append(div);
+        grid.attach(parentElement);
     }
   
-    this.detach = function(){
-        div.parentElement.removeChild(div);
+    this.detach = function() {
+        grid.detach();
     }
   
-    this.handleEvent = function(eventType, callback){
-        div.addEventListener(eventType, callback.bind(this, _this));
+    this.handleEvent = function(eventType, callback) {
+        grid.handleEvent(eventType, callback);
     }
 
     /**
@@ -75,15 +78,15 @@ let Playground = function(id) {
     this.placeBlockToDefaultPosition = function(block) {
         currentBlock = block;
         currentBlock.resetPositionSchema();
-        currentBlock.setCenter(default_center);
+        currentBlock.center = default_center;
         currentBlock.setPositionSchema(10);
-        currentBlock.setBlock(cells, 10);
+        currentBlock.setBlock(grid.cells, 10);
 
         // Check looser case
-        if (cells[default_center].fixed || 
-            cells[currentBlock.positionSchema.body].fixed ||
-            cells[currentBlock.positionSchema.head].fixed ||
-            cells[currentBlock.positionSchema.footer].fixed) 
+        if (grid.cells[default_center].fixed || 
+            grid.cells[currentBlock.positionSchema.body].fixed ||
+            grid.cells[currentBlock.positionSchema.head].fixed ||
+            grid.cells[currentBlock.positionSchema.footer].fixed) 
         {
             return false;
         }
@@ -94,10 +97,10 @@ let Playground = function(id) {
      * Scroll block on the grid.
      */
     this.scrollBlock = function(param) {
-        currentBlock.cleanBlocks(cells, currentBlock.positionSchema);
-        currentBlock.setCenter(currentBlock.center + (param));
+        currentBlock.cleanBlocks(grid.cells, currentBlock.positionSchema);
+        currentBlock.center = currentBlock.center + (param);
         currentBlock.setPositionSchema(10);
-        currentBlock.setBlock(cells, 10);
+        currentBlock.setBlock(grid.cells, 10);
     }
 
     /**
@@ -105,8 +108,8 @@ let Playground = function(id) {
      */
     this.roundBlock = function() {
         let schema = {...currentBlock.positionSchema};
-        let center = currentBlock.getCenter();
-        let position = currentBlock.getPosition();
+        let center = currentBlock.center;
+        let position = currentBlock.position;
 
         // left limit
         for (let i = 0; i < 200; i+=10) {
@@ -136,9 +139,9 @@ let Playground = function(id) {
 
         // Check new position available
         for (let pos in currentBlock.positionSchema) {
-            if (cells[currentBlock.positionSchema[pos]].fixed) {
+            if (grid.cells[currentBlock.positionSchema[pos]].fixed) {
                 // New position not available, position restore
-                currentBlock.setCenter(center);
+                currentBlock.center = center;
                 currentBlock.positionSchema = schema;
                 currentBlock.setPosition(position);
                 return;
@@ -146,8 +149,8 @@ let Playground = function(id) {
         }
 
         // Set new position
-        currentBlock.cleanBlocks(cells, schema);
-        currentBlock.setBlock(cells, 10);
+        currentBlock.cleanBlocks(grid.cells, schema);
+        currentBlock.setBlock(grid.cells, 10);
     }
 
     /** 
@@ -196,7 +199,7 @@ let Playground = function(id) {
         for (let pos in currentBlock.positionSchema) {
             let val = currentBlock.positionSchema[pos];
 
-            if (cells[val+(param)].fixed) {
+            if (grid.cells[val+(param)].fixed) {
                 return false;
             }
         }
@@ -208,7 +211,7 @@ let Playground = function(id) {
      */
     this.attachBlock = function(param) {
         for (let pos in currentBlock.positionSchema) {
-            if (cells[currentBlock.positionSchema[pos] + param].fixed) {
+            if (grid.cells[currentBlock.positionSchema[pos] + param].fixed) {
                 return true;
             }    
         }
@@ -217,7 +220,7 @@ let Playground = function(id) {
 
     this.setFixedBlock = function() {
         for (let pos in currentBlock.positionSchema) {
-            cells[currentBlock.positionSchema[pos]].setFixed(true);
+            grid.cells[currentBlock.positionSchema[pos]].setFixed(true);
         }
     };
 
@@ -227,7 +230,7 @@ let Playground = function(id) {
     this.checkRowWin = function() {
         let max = Math.max(currentBlock.positionSchema.center, currentBlock.positionSchema.head, currentBlock.positionSchema.body, currentBlock.positionSchema.footer);
         let arrayWin = [];
-        let row = cells[max].row;
+        let row = grid.cells[max].row;
         let iteration = 0;
 
         while (row > 0 && iteration < 4) {
@@ -236,7 +239,7 @@ let Playground = function(id) {
             let endline = index+10;
             
             for (index; index < endline; index++) {
-                count = cells[index].fixed ? count+1 : count;
+                count = grid.cells[index].fixed ? count+1 : count;
             }
 
             if (count == 10) arrayWin.push(row);
@@ -263,7 +266,7 @@ let Playground = function(id) {
         for (let i of arrayWin) {
             let effectiveIndex = i*10;
             for (let j = effectiveIndex; j < effectiveIndex+10; j++) {
-                cells[j].resetCell();
+                grid.cells[j].resetCell();
             }
         }
         
@@ -276,10 +279,10 @@ let Playground = function(id) {
                 let z = lastIndex + 10;
     
                 for (let j = lastIndex; j < z; j++) {
-                    if (cells[k].filled) {
-                        cells[j].setBackground(cells[k].color);
-                        cells[j].setFixed(true);
-                        cells[k].resetCell();
+                    if (grid.cells[k].filled) {
+                        grid.cells[j].setBackground(grid.cells[k].color);
+                        grid.cells[j].setFixed(true);
+                        grid.cells[k].resetCell();
                     }
                     k++;
                 }
@@ -292,9 +295,7 @@ let Playground = function(id) {
 };
 
 Playground.prototype.setStyle = setStyle;
-Playground.prototype.setGrid = grid;
 Playground.prototype.build = buildDOMElem;
+Playground.prototype.setGridCells = cellAggregation;
 
 export default Playground;
-
-

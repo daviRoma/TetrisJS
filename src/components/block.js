@@ -30,27 +30,11 @@ let Block = function(id, position, center) {
     this.position = position;
     this.positionSchema = {...schema};
     this.colorIndex = Math.floor(Math.random() * colors.length);
-    
-    this.setCenter = function(center) {
-        this.center = center;
-    };
-
-    this.setPosition = function(position) {
-        this.position = position;
-    }
 
     this.setNextPosition = function() {
         let positionIndex = positionList.indexOf(this.position);
         this.position = positionIndex == 3 ? positionList[0] : positionList[positionIndex+1];
     };
-
-    this.getCenter = function() {
-        return this.center;
-    };
-
-    this.getPosition = function() {
-        return this.position;
-    }
 
     this.setBlock = function(cells, x) {
         for (let index in this.positionSchema) {

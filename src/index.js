@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import Playground from './playground.js';
-import BlockPreview from './preview_block.js';
+import Playground from './controllers/playground.js';
+import Preview from './controllers/preview.js';
 import Modal from './layout/modal';
 import Button from './layout/button';
 import Options from './layout/options';
@@ -23,7 +23,7 @@ import { setStyle, bgcolors } from './utils.js';
         // Build page
         let context = document.getElementById("root");
         let playground = new Playground('playground');
-        let blockPreview = new BlockPreview('block_preview');
+        let blockPreview = new Preview('block_preview');
         let score = new Score('score');
         let newGameButton = new Button("newGame", "New Game", ["button", "button-new"], null);
         let pauseButton = new Button("pause", null, ["button", "button-pause", "btn-disable"], "pause");
