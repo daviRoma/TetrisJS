@@ -3,15 +3,6 @@
  * 
  */
 
-const bgcolors = {
-    default: 'white',
-    darkblue: 'darkblue',
-    darkgreen: '#004d00',
-    darkred: '#800000',
-    black: '#0d0d0d',
-    violet: '#660066'
-};
-
 /**
  * Set element style.
  * @param {any} element 
@@ -68,7 +59,6 @@ let scoreCalculation = function(score, rows) {
 
 
 export {
-    bgcolors,
     setStyle,
     setClass,
     buildDOMElem,

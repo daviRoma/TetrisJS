@@ -1,7 +1,18 @@
-import { setClass, buildDOMElem } from '../utils.js';
+/**
+ * Button layout element.
+ * 
+ */
 
-const materialIcon = 'material-icons';
+import { setClass, buildDOMElem } from '../resources/utils';
+import { MATERIAL_ICON } from '../resources/configuration';
 
+/**
+ * Button class.
+ * @param {String} id 
+ * @param {String} name 
+ * @param {Array} classes 
+ * @param {String} iconName 
+ */
 let Button = function(id, name, classes, iconName) {
     let context;
     let icon;
@@ -16,7 +27,7 @@ let Button = function(id, name, classes, iconName) {
 
         if (iconName != null) {
             icon = this.build('i', {textContent: iconName});
-            this.setClass(icon, [materialIcon]);
+            this.setClass(icon, [MATERIAL_ICON]);
             context.append(icon);
         }
         

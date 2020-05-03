@@ -1,4 +1,4 @@
-import { setClass, buildDOMElem, scoreCalculation } from '../utils.js';
+import { setClass, buildDOMElem, scoreCalculation } from '../resources/utils';
 
 let Score = function (id) {
     let context;

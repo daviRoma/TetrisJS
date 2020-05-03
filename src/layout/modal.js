@@ -1,4 +1,9 @@
-import { setClass, buildDOMElem } from '../utils.js';
+/**
+ * Modal layout element.
+ *
+ */
+
+import { setClass, buildDOMElem } from '../resources/utils';
 
 let Modal = function (id, title, message_body) {
     let context;

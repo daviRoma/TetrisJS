@@ -1,9 +1,8 @@
-import { setStyle, buildDOMElem } from '../utils.js';
-import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock, type } from '../components/block.js';
-import { Grid, grid_style } from '../components/grid.js';
-import { Cell, cellAggregation } from '../components/cell.js';
-
-const grid_size = 25;
+import { setStyle, buildDOMElem } from '../resources/utils';
+import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock } from '../components/block';
+import Grid from '../components/grid';
+import { getAggregation } from '../components/cell';
+import { PREVIEW_SIZE, GRID_STYLE, BLOCKS_TYPE } from '../resources/configuration';
 
 /** 
  * Block Preview square.
@@ -18,14 +17,14 @@ let Preview = function(id) {
     let init = (function() {
         this.fieldId = id;
 
-        previewGrid = { ...grid_style };
+        previewGrid = { ...GRID_STYLE };
         previewGrid.top = '15%';
         previewGrid.left = '65%';
         previewGrid.height = '110px';
         previewGrid.width = '110px';
 
-        grid = new Grid('preview_grid', 'preview', grid_size, previewGrid);
-        grid.cells = this.setGridCells(grid.getContext(), grid_size);
+        grid = new Grid('preview_grid', 'preview', PREVIEW_SIZE, previewGrid);
+        grid.cells = this.setGridCells(grid.getContext(), PREVIEW_SIZE);
 
     }).bind(this);
 
@@ -61,7 +60,7 @@ let Preview = function(id) {
     };
 
     this.generateNextBlock = function() {
-        let indexType = Math.floor(Math.random() * type.length);
+        let indexType = Math.floor(Math.random() * BLOCKS_TYPE.length);
         let center = 0;
 
         for (let cell of grid.cells) {
@@ -70,7 +69,7 @@ let Preview = function(id) {
             }
         }
 
-        switch (type[indexType]) {
+        switch (BLOCKS_TYPE[indexType]) {
             case 'L':
                 center = 12;
                 block = new LBlock('LB' + blockNumber, 'RIGHT', center);
@@ -128,6 +127,6 @@ let Preview = function(id) {
 
 Preview.prototype.setStyle = setStyle;
 Preview.prototype.build = buildDOMElem;
-Preview.prototype.setGridCells = cellAggregation;
+Preview.prototype.setGridCells = getAggregation;
 
 export default Preview;

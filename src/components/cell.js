@@ -1,4 +1,11 @@
-import { setStyle, setClass, buildDOMElem } from '../utils.js';
+/**
+ * Cell component.
+ * 
+ * A cell is a single element that makes up the grid. 
+ * 
+ */
+
+import { setStyle, setClass, buildDOMElem } from '../resources/utils.js';
 
 /**
  * Cell
@@ -71,7 +78,7 @@ let Cell = function(id) {
     init();
 };
 
-let cellAggregation = function (element, size) {
+let getAggregation = function (element, size) {
     let cells = [];
 
     for (let i = 0; i < size; i++) {
@@ -89,4 +96,4 @@ Cell.prototype.setStyle = setStyle;
 Cell.prototype.setClass = setClass;
 Cell.prototype.build = buildDOMElem;
 
-export { Cell, cellAggregation };
+export { Cell, getAggregation };

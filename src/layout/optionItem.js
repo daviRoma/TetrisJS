@@ -1,5 +1,18 @@
-import { setClass, buildDOMElem } from '../utils.js';
+/**
+ * Options layout element.
+ *
+ */
 
+import { setClass, buildDOMElem } from '../resources/utils';
+
+/**
+ * OptionItem class.
+ * @param {String} type 
+ * @param {String} name 
+ * @param {String} value 
+ * @param {Boolean} check 
+ * @param {Array} classes 
+ */
 let OptionItem = function (type, name, value, check, classes) {
     let input;
     let label;

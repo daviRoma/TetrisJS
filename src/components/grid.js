@@ -1,10 +1,9 @@
-import { setStyle, buildDOMElem } from '../utils';
+/**
+ * Grid component.
+ * 
+ */
 
-const grid_style = {
-    margin: '5px',
-    border: '2px solid black',
-    background: 'white'
-};
+import { setStyle, buildDOMElem } from '../resources/utils';
 
 /**
  * Grid class
@@ -52,4 +51,4 @@ let Grid = function(id, name, size, style) {
 Grid.prototype.build = buildDOMElem;
 Grid.prototype.setStyle = setStyle;
 
-export { Grid, grid_style};
+export default Grid;

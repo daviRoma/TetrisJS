@@ -1,6 +1,4 @@
-import { setClass, buildDOMElem } from '../utils.js';
-
-const titleClass = 'option-title';
+import { setClass, buildDOMElem } from '../resources/utils';
 
 let Options = function(id, text, classes) {
     let title;
@@ -11,7 +9,7 @@ let Options = function(id, text, classes) {
         context = this.build('div', {id: this.fieldId});
         title = this.build('p', {textContent: text});
 
-        this.setClass(title, [titleClass]);
+        this.setClass(title, ['option-title']);
         context.append(title);
     }).bind(this);
 

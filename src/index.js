@@ -1,18 +1,15 @@
 import $ from 'jquery';
-import Playground from './controllers/playground.js';
-import Preview from './controllers/preview.js';
+import Playground from './controllers/playground';
+import Preview from './controllers/preview';
 import Modal from './layout/modal';
 import Button from './layout/button';
 import Options from './layout/options';
 import OptionItem from './layout/optionItem';
 import Score from './layout/score';
-import { setStyle, bgcolors } from './utils.js';
+import { setStyle } from './resources/utils';
+import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './resources/configuration';
 
 {
-    const default_interval = 1000;
-    const intervals = [900, 700, 500, 300, 200];
-    const tresholds = [150, 300, 500, 700, 1000];
-
     var clock = null;
     var interval = null;
     var start = false;
@@ -22,6 +19,9 @@ import { setStyle, bgcolors } from './utils.js';
 
         // Build page
         let context = document.getElementById("root");
+        setStyle(context, { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 });
+
+        // Create page elements
         let playground = new Playground('playground');
         let blockPreview = new Preview('block_preview');
         let score = new Score('score');
@@ -55,15 +55,6 @@ import { setStyle, bgcolors } from './utils.js';
             optionItem_6
         ]);
 
-        // Set page style
-        setStyle(context, {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-        });
-
         // begin function
         let begin = () => {
             blockPreview.generateNextBlock();
@@ -86,20 +77,20 @@ import { setStyle, bgcolors } from './utils.js';
                     let new_score = score.calculateNewScore(old_score, playground.getWinningRows());
                     score.setScore(new_score);
 
-                    if (new_score >= tresholds[4] && old_score < tresholds[4]) {
-                        interval = intervals[4];
+                    if (new_score >= TRESHOLDS[4] && old_score < TRESHOLDS[4]) {
+                        interval = INTERVALS[4];
                         update_interval = true;
-                    } else if (new_score >= tresholds[3] && old_score < tresholds[3]) {
-                        interval = intervals[3];
+                    } else if (new_score >= TRESHOLDS[3] && old_score < TRESHOLDS[3]) {
+                        interval = INTERVALS[3];
                         update_interval = true;
-                    } else if (new_score >= tresholds[2] && old_score < tresholds[2]) {
-                        interval = intervals[2];
+                    } else if (new_score >= TRESHOLDS[2] && old_score < TRESHOLDS[2]) {
+                        interval = INTERVALS[2];
                         update_interval = true;
-                    } else if (new_score >= tresholds[1] && old_score < tresholds[1]) {
-                        interval = intervals[1];
+                    } else if (new_score >= TRESHOLDS[1] && old_score < TRESHOLDS[1]) {
+                        interval = INTERVALS[1];
                         update_interval = true;
-                    } else if (new_score >= tresholds[0] && old_score < tresholds[0]) {
-                        interval = intervals[0];
+                    } else if (new_score >= TRESHOLDS[0] && old_score < TRESHOLDS[0]) {
+                        interval = INTERVALS[0];
                         update_interval = true;
                     }
 
@@ -163,12 +154,12 @@ import { setStyle, bgcolors } from './utils.js';
             }
             
             // Set variables
-            interval = default_interval;
+            interval = DEFAULT_INTERVAL;
             score.setScore(0);
 
             // Set background on new game
             let optionValue = $(':radio[name="background"]').filter(':checked').val();
-            playground.setBackground(bgcolors[optionValue]);
+            playground.setBackground(BACKGROUND_COLORS[optionValue]);
             
             // Begin
             begin();
@@ -208,8 +199,8 @@ import { setStyle, bgcolors } from './utils.js';
         $(':radio[name="background"]').change(function() {
             let value = $(this).filter(':checked').val();
             // Set background
-            playground.setBackground(bgcolors[value]);
-            blockPreview.setBackground(bgcolors[value]);
+            playground.setBackground(BACKGROUND_COLORS[value]);
+            blockPreview.setBackground(BACKGROUND_COLORS[value]);
             $(':radio[name="background"]').blur();
         });
 

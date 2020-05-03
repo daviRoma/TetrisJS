@@ -1,44 +1,31 @@
 /**
- * Class Block.
+ * Block component.
+ * 
+ * Definitions of all block types.
  * 
  */
 
-const positionList = ['UP', 'RIGHT', 'BOTTOM', 'LEFT'];
-const type = ['L', 'J', 'I', 'T', 'Q', 'Z', 'S'];
+import { POSITIONS, BLOCK_SCHEMA, COLORS} from '../resources/configuration';
 
-// blue, red, green, orange, yellow, purple, pink, grey, brown
-const colors = [
-    '#0044cc', 
-    '#cc0000', 
-    '#009933', 
-    '#e65c00', 
-    '#e6e600', 
-    '#9933ff', 
-    '#ff4dff', 
-    '#808080', 
-    '#996633'
-];
-
-const schema = { center: 0, head: 0, body: 0, footer: 0 };
 
 /**
- * Class Block
+ * Class Block.
  */
 let Block = function(id, position, center) {
     this.id = id;
     this.center = center;
     this.position = position;
-    this.positionSchema = {...schema};
-    this.colorIndex = Math.floor(Math.random() * colors.length);
+    this.positionSchema = {...BLOCK_SCHEMA};
+    this.colorIndex = Math.floor(Math.random() * COLORS.length);
 
     this.setNextPosition = function() {
-        let positionIndex = positionList.indexOf(this.position);
-        this.position = positionIndex == 3 ? positionList[0] : positionList[positionIndex+1];
+        let positionIndex = POSITIONS.indexOf(this.position);
+        this.position = positionIndex == 3 ? POSITIONS[0] : POSITIONS[positionIndex+1];
     };
 
     this.setBlock = function(cells, x) {
         for (let index in this.positionSchema) {
-            cells[this.positionSchema[index]].setBackground(colors[this.colorIndex]);
+            cells[this.positionSchema[index]].setBackground(COLORS[this.colorIndex]);
         }
     };
 
@@ -293,7 +280,5 @@ export {
     JBlock,
     TBlock,
     QBlock,
-    IBlock,
-    positionList,
-    type
+    IBlock
 };
