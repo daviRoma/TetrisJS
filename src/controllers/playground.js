@@ -1,8 +1,8 @@
-import { setStyle, buildDOMElem } from '../resources/utils';
+import { buildDOMElem } from '../resources/utils';
 import Grid from '../components/grid';
 import { IBlock } from '../components/block';
 import { getAggregation } from '../components/cell';
-import { GRID_STYLE, DEFAULT_CENTER, PLAYGROUND_SIZE } from '../resources/configuration';
+import { PLAYGROUND_STYLE, DEFAULT_CENTER, PLAYGROUND_SIZE } from '../resources/configuration';
 
 
 /** 
@@ -10,22 +10,14 @@ import { GRID_STYLE, DEFAULT_CENTER, PLAYGROUND_SIZE } from '../resources/config
  * @param {String} id
  */
 let Playground = function(id) {
-    let playgroundGrid;
     let grid;
     let currentBlock;
     let winning_rows;
-    let _this = this;
 
     let init = (function() {
         this.fieldId = id;
 
-        playgroundGrid = { ...GRID_STYLE };
-        playgroundGrid.top = '15%';
-        playgroundGrid.left = '40%';
-        playgroundGrid.height = '440px';
-        playgroundGrid.width = '220px';
-
-        grid = new Grid('playground_grid', 'playground_grid', PLAYGROUND_SIZE, playgroundGrid);
+        grid = new Grid('playground_grid', 'playground_grid', PLAYGROUND_SIZE, PLAYGROUND_STYLE);
         grid.cells = this.setGridCells(grid.getContext(), PLAYGROUND_SIZE);
         // div = this.build('div', { id: this.fieldId, name: 'playground_grid'});
     }).bind(this);
@@ -51,8 +43,7 @@ let Playground = function(id) {
     }
 
     this.setBackground = function(bgcolor) {
-        playgroundGrid.background = bgcolor;
-        grid.setStyle(grid.getContext(), playgroundGrid);
+        grid.setStyle(grid.getContext(), { background: bgcolor});
 
         for (let cell of grid.cells) {
             cell.setDefaultColor(bgcolor);
@@ -77,7 +68,7 @@ let Playground = function(id) {
     this.placeBlockToDefaultPosition = function(block) {
         currentBlock = block;
         currentBlock.resetPositionSchema();
-        currentBlock.center = DEFAULT_CENTER;
+        currentBlock.center = currentBlock instanceof IBlock ? DEFAULT_CENTER - 9 : DEFAULT_CENTER;
         currentBlock.setPositionSchema(10);
         currentBlock.setBlock(grid.cells, 10);
 
@@ -293,7 +284,6 @@ let Playground = function(id) {
     init();
 };
 
-Playground.prototype.setStyle = setStyle;
 Playground.prototype.build = buildDOMElem;
 Playground.prototype.setGridCells = getAggregation;
 

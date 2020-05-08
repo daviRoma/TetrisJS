@@ -20,8 +20,10 @@ let setStyle = function(element, styles) {
  * @param {Object} classes 
  */
 let setClass = function (element, classes) {
-    for (let cls of classes) {
-        element.classList.add(cls);
+    if (classes != null) {
+        for (let cls of classes) {
+            element.classList.add(cls);
+        }
     }
 };
 

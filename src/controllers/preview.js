@@ -1,8 +1,8 @@
-import { setStyle, buildDOMElem } from '../resources/utils';
+import { buildDOMElem } from '../resources/utils';
 import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock } from '../components/block';
 import Grid from '../components/grid';
 import { getAggregation } from '../components/cell';
-import { PREVIEW_SIZE, GRID_STYLE, BLOCKS_TYPE } from '../resources/configuration';
+import { PREVIEW_SIZE, PREVIEWGROUND_STYLE, BLOCKS_TYPE } from '../resources/configuration';
 
 /** 
  * Block Preview square.
@@ -10,20 +10,13 @@ import { PREVIEW_SIZE, GRID_STYLE, BLOCKS_TYPE } from '../resources/configuratio
  */
 let Preview = function(id) {
     let grid;
-    let previewGrid;
     let block;
     let blockNumber = 1;
 
     let init = (function() {
         this.fieldId = id;
 
-        previewGrid = { ...GRID_STYLE };
-        previewGrid.top = '15%';
-        previewGrid.left = '65%';
-        previewGrid.height = '110px';
-        previewGrid.width = '110px';
-
-        grid = new Grid('preview_grid', 'preview', PREVIEW_SIZE, previewGrid);
+        grid = new Grid('preview_grid', 'preview', PREVIEW_SIZE, PREVIEWGROUND_STYLE);
         grid.cells = this.setGridCells(grid.getContext(), PREVIEW_SIZE);
 
     }).bind(this);
@@ -114,8 +107,7 @@ let Preview = function(id) {
     };
 
     this.setBackground = function (bgcolor) {
-        previewGrid.background = bgcolor;
-        this.setStyle(grid.getContext(), previewGrid);
+        grid.setStyle(grid.getContext(), { background: bgcolor });
 
         for (let cell of grid.cells) {
             cell.setDefaultColor(bgcolor);
@@ -125,7 +117,6 @@ let Preview = function(id) {
     init();
 };
 
-Preview.prototype.setStyle = setStyle;
 Preview.prototype.build = buildDOMElem;
 Preview.prototype.setGridCells = getAggregation;
 

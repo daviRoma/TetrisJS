@@ -35,6 +35,9 @@ const BLOCK_SCHEMA = { center: 0, head: 0, body: 0, footer: 0 };
 
 // Grid
 const GRID_STYLE = { margin: '5px', border: '2px solid black', background: 'white' };
+const PLAYGROUND_STYLE = { ...GRID_STYLE, top: '15%', left: '40%', height: '440px', width: '220px' };
+const PREVIEWGROUND_STYLE = { ...GRID_STYLE, top: '15%', left: '65%', height: '110px', width: '110px' };
+
 const DEFAULT_CENTER = 14;
 const PLAYGROUND_SIZE = 200; // 20x10
 const PREVIEW_SIZE = 25; // 5x5
@@ -52,6 +55,8 @@ export {
     BLOCKS_TYPE,
     BLOCK_SCHEMA,
     GRID_STYLE,
+    PLAYGROUND_STYLE,
+    PREVIEWGROUND_STYLE,
     DEFAULT_CENTER,
     PLAYGROUND_SIZE,
     PREVIEW_SIZE,

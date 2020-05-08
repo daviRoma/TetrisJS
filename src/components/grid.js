@@ -20,9 +20,10 @@ let Grid = function(id, name, size, style) {
         this.fieldId = id;
         this.size = size;
         this.cells = [];
+        this.style = style;
 
         context = this.build('div', { id: this.fieldId, name: name });
-        this.setStyle(context, style);
+        this.setStyle(context, this.style);
     }).bind(this);
 
     this.setContext = function(context) {
@@ -31,6 +32,10 @@ let Grid = function(id, name, size, style) {
 
     this.getContext = function() {
         return context;
+    }
+
+    this.getStyle = function() {
+        return this.style;
     }
 
     this.attach = function (parentElement) {

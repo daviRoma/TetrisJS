@@ -15,7 +15,7 @@ let Block = function(id, position, center) {
     this.id = id;
     this.center = center;
     this.position = position;
-    this.positionSchema = {...BLOCK_SCHEMA};
+    this.positionSchema = { ...BLOCK_SCHEMA };
     this.colorIndex = Math.floor(Math.random() * COLORS.length);
 
     this.setNextPosition = function() {

@@ -39,9 +39,7 @@ let OptionItem = function (type, name, value, check, classes) {
 
         newLine = this.build('br', {});
 
-        if (classes) {
-            this.setClass(input, classes);
-        }
+        this.setClass(label, classes);
 
     }).bind(this);
 

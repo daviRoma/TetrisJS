@@ -1,3 +1,11 @@
+/**
+ * TetrisJS
+ * 
+ * Author: Davide Romano
+ * Description: The Tetris game written in javascript.
+ * 
+ */
+
 import $ from 'jquery';
 import Playground from './controllers/playground';
 import Preview from './controllers/preview';
@@ -30,12 +38,12 @@ import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './res
         let playButton = new Button("play", null, ["button", "button-play", "btn-disable"], "play_arrow");
         let modal;
         let backgrounOptions = new Options('backgroundOptions', 'Grid Background', null);
-        let optionItem_1 = new OptionItem('radio', 'background', 'default', true, null);
-        let optionItem_2 = new OptionItem('radio', 'background', 'darkblue', false, null);
-        let optionItem_3 = new OptionItem('radio', 'background', 'darkgreen', false, null);
-        let optionItem_4 = new OptionItem('radio', 'background', 'darkred', false, null);
-        let optionItem_5 = new OptionItem('radio', 'background', 'violet', false, null);
-        let optionItem_6 = new OptionItem('radio', 'background', 'black', false, null);
+        let optionItem_1 = new OptionItem('radio', 'background', 'default', true, ["option-item-text"]);
+        let optionItem_2 = new OptionItem('radio', 'background', 'darkblue', false, ["option-item-text"]);
+        let optionItem_3 = new OptionItem('radio', 'background', 'darkgreen', false, ["option-item-text"]);
+        let optionItem_4 = new OptionItem('radio', 'background', 'darkred', false, ["option-item-text"]);
+        let optionItem_5 = new OptionItem('radio', 'background', 'violet', false, ["option-item-text"]);
+        let optionItem_6 = new OptionItem('radio', 'background', 'black', false, ["option-item-text"]);
 
         // Attach Playground and BlockPreview on the main page
         playground.attach($('#item-center'));

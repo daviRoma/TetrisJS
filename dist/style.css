@@ -1,3 +1,7 @@
+/**
+ * Css style class.
+ */
+
 .header {
     display: grid;
     grid-template-columns: 20% 50% 30%;
@@ -5,6 +9,7 @@
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 25px;
     margin: 10px;
+    background: #2952a3;
 }
 
 .header-text {
@@ -16,12 +21,12 @@
     -moz-background-clip: text;
     background-clip: text;
     /* text-shadow: 0px 3px 3px rgba(233, 232, 232, 0.4); */
-    text-shadow: 2px 2px 0 #083b7a, 2px -2px 0 #083b7a, -2px 2px 0 #083b7a, -2px -2px 0 #083b7a, 2px 0px 0 #083b7a, 0px 2px 0 #083b7a, -2px 0px 0 #083b7a, 0px -2px 0 #083b7a;
+    /* text-shadow: 2px 2px 0 #083b7a, 2px -2px 0 #083b7a, -2px 2px 0 #083b7a, -2px -2px 0 #083b7a, 2px 0px 0 #083b7a, 0px 2px 0 #083b7a, -2px 0px 0 #083b7a, 0px -2px 0 #083b7a; */
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 35% 30% 35%;
     padding: 10px;
 }
 
@@ -45,7 +50,7 @@ div.cell {
 /** Score styles */
 
 .item-right-2 {
-    margin: 15px 0px;
+    margin: 20px 0px;
     border-top: 2px solid #0f0f0f;
 }
 
@@ -92,14 +97,18 @@ div.cell {
 }
 
 .option-title {
-    font-size: 17px;
+    font-size: 1.3em;
     font-weight: 600;
-    margin: 10px 0px;
+    margin: 0.7em 0em 0.7em 0em;
     color: #264d73;
 }
 
+.option-item-text {
+    font-weight: 700;
+}
+
 .button-container {
-    padding: 10px 5px;
+    padding: 8px 5px;
     display: grid;
     grid-template-columns: 40% 20% 20%;
 }
@@ -119,7 +128,7 @@ div.cell {
 
 .button-new {
     max-width: 85%;
-    padding: 15px;
+    padding: 0.7em 0.5em;
     background-color: rgb(5, 89, 168);
     color: #ffffff;
     border: 2px solid rgb(2, 102, 196);
@@ -134,7 +143,7 @@ div.cell {
 
 .button-pause {
     background-color: rgb(206, 30, 18);
-    padding: 10px 22px;
+    padding: 0.7em 0.5em;
     color: rgb(241, 241, 241);
     font-size: 14px;
     border: 2px solid rgb(236, 48, 48);
@@ -149,7 +158,7 @@ div.cell {
 
 .button-play {
     background-color: rgb(50, 189, 22);
-    padding: 10px 22px;
+    padding: 0.7em 0.5em;
     color: rgb(10, 10, 10);
     font-size: 14px;
     border: 2px solid rgb(58, 206, 29);
