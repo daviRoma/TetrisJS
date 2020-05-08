@@ -66,12 +66,14 @@ div.cell {
 .score-text {
     padding: 5px 0px;
     color: #0f0f0f;
-    text-shadow: 2px 2px 0 #bcbcbc, 2px 2px 0 #a5a4a4;
+    color: #1f3d7a;
+    font-weight: 600;
 }
 
 .score-number {
     padding: 5px 0px;
     font-size: 22px;
+    font-weight: 700;
     font-family: 'Courier New', Courier, monospace;
 }
 
