@@ -1,13 +1,8 @@
-/**
- * Button layout element.
- * 
- */
-
 import { setClass, buildDOMElem } from '../resources/utils';
 import { MATERIAL_ICON } from '../resources/configuration';
 
 /**
- * Button class.
+ * Button layout class.
  * @param {String} id 
  * @param {String} name 
  * @param {Array} classes 

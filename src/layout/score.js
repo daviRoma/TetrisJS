@@ -1,5 +1,9 @@
 import { setClass, buildDOMElem, scoreCalculation } from '../resources/utils';
 
+/**
+ * Score layout class.
+ * @param {String} id 
+ */
 let Score = function (id) {
     let context;
     let text_elem;

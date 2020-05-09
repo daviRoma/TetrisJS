@@ -1,12 +1,7 @@
-/**
- * Options layout element.
- *
- */
-
 import { setClass, buildDOMElem } from '../resources/utils';
 
 /**
- * OptionItem class.
+ * OptionItem layout class.
  * @param {String} type 
  * @param {String} name 
  * @param {String} value 

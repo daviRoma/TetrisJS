@@ -1,10 +1,11 @@
-/**
- * Modal layout element.
- *
- */
-
 import { setClass, buildDOMElem } from '../resources/utils';
 
+/**
+ * Modal layout class
+ * @param {String} id 
+ * @param {String} title 
+ * @param {String} message_body 
+ */
 let Modal = function (id, title, message_body) {
     let context;
     let container;
@@ -112,8 +113,10 @@ let ModalBody = function (id, message) {
         this.fieldId = id;
 
         context = this.build('div', { id: this.fieldId });
-        content = this.build('span', { id: 'modal_header_content', name: 'contentHeader'});
+        this.setClass(context, ["modal-body"])
+        content = this.build('span', { id: 'modal_body_content' });
         content.innerHTML = message;
+
         context.append(content);
 
     }).bind(this);

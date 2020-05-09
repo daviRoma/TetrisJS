@@ -1,5 +1,11 @@
 import { setClass, buildDOMElem } from '../resources/utils';
 
+/**
+ * Options layout class.
+ * @param {String} id 
+ * @param {String} text 
+ * @param {Array} classes 
+ */
 let Options = function(id, text, classes) {
     let title;
     let context;
