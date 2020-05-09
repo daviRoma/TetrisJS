@@ -1,11 +1,11 @@
 import { buildDOMElem } from '../resources/utils';
 import { ZBlock, SBlock, LBlock, JBlock, TBlock, QBlock, IBlock } from '../components/block';
 import Grid from '../components/grid';
-import { getAggregation } from '../components/cell';
-import { PREVIEW_SIZE, PREVIEWGROUND_STYLE, BLOCKS_TYPE } from '../resources/configuration';
+import Cell from '../components/cell';
+import { PREVIEW_SIZE, PREVIEWGROUND_STYLE, PREVIEWGROUND_INDEX, BLOCKS_TYPE } from '../resources/configuration';
 
 /** 
- * Block Preview square.
+ * Preview groud controller class.
  * @param {String} id
  */
 let Preview = function(id) {
@@ -40,7 +40,6 @@ let Preview = function(id) {
     this.handleEvent = function (eventType, callback) {
         grid.handleEvent(eventType, callback);
     }
-
 
     this.resetGrid = function() {
         for (let cell of grid.cells) {
@@ -100,9 +99,10 @@ let Preview = function(id) {
 
             default: break;
         }
-        block.setPositionSchema(5);
 
-        block.setBlock(grid.cells, 5);
+        block.setPositionSchema(PREVIEWGROUND_INDEX);
+        block.setBlock(grid.cells, PREVIEWGROUND_INDEX);
+
         blockNumber += 1;
     };
 
@@ -118,6 +118,18 @@ let Preview = function(id) {
 };
 
 Preview.prototype.build = buildDOMElem;
-Preview.prototype.setGridCells = getAggregation;
+Preview.prototype.setGridCells = function (element, size) {
+    let cells = [];
+
+    for (let i = 0; i < size; i++) {
+        let cell = new Cell(i);
+        let row = i >= PREVIEWGROUND_INDEX ? Math.floor(i / PREVIEWGROUND_INDEX) : 0;
+
+        cell.setRow(row);
+        cells.push(cell);
+        element.append(cell.getElem());
+    }
+    return cells;
+};
 
 export default Preview;

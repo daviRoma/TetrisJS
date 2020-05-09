@@ -23,7 +23,7 @@ import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './res
     var start = false;
 
     // Tetris app
-    let tetris = function() {
+    let TetrisJS = function() {
 
         // Build page
         let context = document.getElementById("root");
@@ -136,7 +136,7 @@ import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './res
                     }
                     break;
 
-                case 38:
+                case 38: // ROUND
                     playground.roundBlock();
                     break;
 
@@ -217,5 +217,5 @@ import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './res
 
     };
 
-    $(tetris);
+    $(TetrisJS);
 }
