@@ -23,7 +23,7 @@ import { DEFAULT_INTERVAL, INTERVALS, TRESHOLDS, BACKGROUND_COLORS } from './res
     var start = false;
 
     // Tetris app
-    let TetrisJS = function() {
+    const TetrisJS = function() {
 
         // Build page
         let context = document.getElementById("root");
