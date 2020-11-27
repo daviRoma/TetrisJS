@@ -6,7 +6,7 @@ import { setClass, buildDOMElem } from '../resources/utils';
  * @param {String} text 
  * @param {Array} classes 
  */
-let Options = function(id, text, classes) {
+const Options = function(id, text, classes) {
     let title;
     let context;
 

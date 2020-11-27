@@ -8,7 +8,7 @@ import { setClass, buildDOMElem } from '../resources/utils';
  * @param {Boolean} check 
  * @param {Array} classes 
  */
-let OptionItem = function (type, name, value, check, classes) {
+const OptionItem = function (type, name, value, check, classes) {
     let input;
     let label;
     let newLine;

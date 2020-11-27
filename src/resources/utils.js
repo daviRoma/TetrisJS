@@ -8,7 +8,7 @@
  * @param {any} element 
  * @param {Object} styles 
  */
-let setStyle = function(element, styles) {
+const setStyle = function(element, styles) {
     for (let property in styles) {
         element.style[property] = styles[property];
     }
@@ -19,7 +19,7 @@ let setStyle = function(element, styles) {
  * @param {any} element 
  * @param {Object} classes 
  */
-let setClass = function (element, classes) {
+const setClass = function (element, classes) {
     if (classes != null) {
         for (let cls of classes) {
             element.classList.add(cls);
@@ -32,7 +32,7 @@ let setClass = function (element, classes) {
  * @param {String} dom_name 
  * @param {Object} elem_schema 
  */
-let buildDOMElem = function(dom_name, elem_schema) {
+const buildDOMElem = function(dom_name, elem_schema) {
     let element = document.createElement(dom_name);
     for (let key in elem_schema) {
         element[key] = elem_schema[key];
@@ -45,7 +45,7 @@ let buildDOMElem = function(dom_name, elem_schema) {
  * @param {Number} score 
  * @param {Number} rows 
  */
-let scoreCalculation = function(score, rows) {
+const scoreCalculation = function(score, rows) {
     let bonus = 0;
 
     if (rows == 4) {

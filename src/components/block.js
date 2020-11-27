@@ -11,7 +11,7 @@ import { POSITIONS, BLOCK_SCHEMA, COLORS} from '../resources/configuration';
 /**
  * Class Block.
  */
-let Block = function(id, position, center) {
+const Block = function(id, position, center) {
     this.id = id;
     this.center = center;
     this.position = position;
@@ -48,7 +48,7 @@ let Block = function(id, position, center) {
 /**
  * Class for Block type L.
  */
-let LBlock = function(id, position, center) {
+const LBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 
@@ -92,7 +92,7 @@ let LBlock = function(id, position, center) {
 /**
  * Class for Block type Z.
  */
-let ZBlock = function(id, position, center) {
+const ZBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 
@@ -117,7 +117,7 @@ let ZBlock = function(id, position, center) {
 /**
  * Class for Block type S.
  */
-let SBlock = function(id, position, center) {
+const SBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 
@@ -158,7 +158,7 @@ let QBlock = function(id, position, center) {
 /**
  * Class for Block type T.
  */
-let TBlock = function(id, position, center) {
+const TBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 
@@ -203,7 +203,7 @@ let TBlock = function(id, position, center) {
 /**
  * Class for Block type I.
  */
-let IBlock = function(id, position, center) {
+const IBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 
@@ -229,7 +229,7 @@ let IBlock = function(id, position, center) {
 /**
  * Class for Block type J.
  */
-let JBlock = function(id, position, center) {
+const JBlock = function(id, position, center) {
     
     Block.call(this, id, position, center);
 

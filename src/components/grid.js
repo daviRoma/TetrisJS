@@ -12,7 +12,7 @@ import { setStyle, buildDOMElem } from '../resources/utils';
  * @param {Object} style 
  */
 
-let Grid = function(id, name, size, style) {
+const Grid = function(id, name, size, style) {
     let context;
     let _this = this;
     

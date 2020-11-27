@@ -6,7 +6,7 @@ import { setClass, buildDOMElem } from '../resources/utils';
  * @param {String} title 
  * @param {String} message_body 
  */
-let Modal = function (id, title, message_body) {
+const Modal = function (id, title, message_body) {
     let context;
     let container;
 
@@ -32,7 +32,7 @@ let Modal = function (id, title, message_body) {
     init();
 }
 
-let ModalContent = function (id, title, message_body) {
+const ModalContent = function (id, title, message_body) {
     let context;
     let close_button;
     let header;
@@ -76,7 +76,7 @@ let ModalContent = function (id, title, message_body) {
  * @param {String} id 
  * @param {String} title 
  */
-let ModalHeader = function (id, title) {
+const ModalHeader = function (id, title) {
     let context;
     let content;
 
@@ -105,7 +105,7 @@ let ModalHeader = function (id, title) {
  * @param {String} id 
  * @param {String} message 
  */
-let ModalBody = function (id, message) {
+const ModalBody = function (id, message) {
     let context;
     let content;
 
@@ -133,7 +133,7 @@ let ModalBody = function (id, message) {
  * Modal footer class.
  * @param {String} id 
  */
-let ModalFooter = function (id) {
+const ModalFooter = function (id) {
     let context;
     let content;
 

@@ -8,7 +8,7 @@ import { MATERIAL_ICON } from '../resources/configuration';
  * @param {Array} classes 
  * @param {String} iconName 
  */
-let Button = function(id, name, classes, iconName) {
+const Button = function(id, name, classes, iconName) {
     let context;
     let icon;
     let _this = this;

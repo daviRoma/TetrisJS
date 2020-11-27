@@ -8,7 +8,7 @@ import { PREVIEW_SIZE, PREVIEWGROUND_STYLE, PREVIEWGROUND_INDEX, BLOCKS_TYPE } f
  * Preview groud controller class.
  * @param {String} id
  */
-let Preview = function(id) {
+const Preview = function(id) {
     let grid;
     let block;
     let blockNumber = 1;

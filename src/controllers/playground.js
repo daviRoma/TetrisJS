@@ -9,7 +9,7 @@ import { PLAYGROUND_STYLE, DEFAULT_CENTER, PLAYGROUND_SIZE, PLAYGROUND_INDEX } f
  * Playground controller class.
  * @param {String} id
  */
-let Playground = function(id) {
+const Playground = function(id) {
     let grid;
     let currentBlock;
     let winning_rows;

@@ -11,7 +11,7 @@ import { setStyle, setClass, buildDOMElem } from '../resources/utils.js';
  * Cell
  * @param {String} id 
  */
-let Cell = function(id) {
+const Cell = function(id) {
     let div;
 
     let init = (function() {
