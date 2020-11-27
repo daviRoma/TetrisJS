@@ -3,6 +3,7 @@ import { MATERIAL_ICON } from '../resources/configuration';
 
 /**
  * Button layout class.
+ * 
  * @param {String} id 
  * @param {String} name 
  * @param {Array} classes 

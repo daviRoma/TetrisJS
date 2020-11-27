@@ -7,6 +7,7 @@ import { setStyle, buildDOMElem } from '../resources/utils';
 
 /**
  * Grid class
+ * 
  * @param {String} name 
  * @param {Number} size
  * @param {Object} style 

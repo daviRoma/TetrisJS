@@ -5,7 +5,6 @@
  * Description: The Tetris game written in javascript.
  * 
  */
-
 import $ from 'jquery';
 import Playground from './controllers/playground';
 import Preview from './controllers/preview';

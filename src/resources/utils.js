@@ -1,6 +1,5 @@
 /**
  * Utility class.
- * 
  */
 
 /**

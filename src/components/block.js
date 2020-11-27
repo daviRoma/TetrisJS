@@ -10,6 +10,7 @@ import { POSITIONS, BLOCK_SCHEMA, COLORS} from '../resources/configuration';
 
 /**
  * Class Block.
+ * 
  */
 const Block = function(id, position, center) {
     this.id = id;
@@ -268,7 +269,6 @@ const JBlock = function(id, position, center) {
                 break;
         }
     }
-
 }
 
 

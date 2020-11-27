@@ -3,7 +3,6 @@
  * 
  */
 
-
 // blue, red, green, orange, yellow, purple, pink, grey, brown
 const COLORS = [
     '#0044cc',

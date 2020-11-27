@@ -4,9 +4,9 @@ import { IBlock } from '../components/block';
 import Cell from '../components/cell';
 import { PLAYGROUND_STYLE, DEFAULT_CENTER, PLAYGROUND_SIZE, PLAYGROUND_INDEX } from '../resources/configuration';
 
-
 /** 
  * Playground controller class.
+ * 
  * @param {String} id
  */
 const Playground = function(id) {

@@ -2,6 +2,7 @@ import { setClass, buildDOMElem } from '../resources/utils';
 
 /**
  * Modal layout class
+ * 
  * @param {String} id 
  * @param {String} title 
  * @param {String} message_body 

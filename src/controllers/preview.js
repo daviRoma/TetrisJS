@@ -6,6 +6,7 @@ import { PREVIEW_SIZE, PREVIEWGROUND_STYLE, PREVIEWGROUND_INDEX, BLOCKS_TYPE } f
 
 /** 
  * Preview groud controller class.
+ * 
  * @param {String} id
  */
 const Preview = function(id) {

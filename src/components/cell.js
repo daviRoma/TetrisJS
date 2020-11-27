@@ -9,6 +9,7 @@ import { setStyle, setClass, buildDOMElem } from '../resources/utils.js';
 
 /**
  * Cell
+ * 
  * @param {String} id 
  */
 const Cell = function(id) {
